@@ -3,7 +3,6 @@ import Hero from "../components/Hero";
 import TrustBar from "../components/TrustBar";
 import Capabilities from "../components/Capabilities";
 import WhyOptimista from "../components/WhyOptimista";
-// import Process from "../components/Process";
 import FeaturedProducts from "../components/FeaturedProducts";
 import FAQ from "../components/FAQ";
 import CTA from "../components/CTA";
@@ -17,7 +16,6 @@ export default function Home() {
       <TrustBar />
       <Capabilities />
       <WhyOptimista />
-       {/* <Process /> */}
       <FeaturedProducts />
       <FAQ />
       <CTA />
