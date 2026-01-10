@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <motion.header
@@ -20,27 +22,23 @@ export default function Navbar() {
           className="h-8"
         />
 
-        {/* Menu */}
-        <ul className="hidden md:flex gap-8 text-sm font-medium">
-          
+        {/* DESKTOP MENU */}
+        <ul className="hidden md:flex gap-8 text-sm font-medium items-center">
           <li className="cursor-pointer">Home</li>
 
-          {/* Services */}
           <li
-            className="relative cursor-pointer text-blue-600"
+            className="relative cursor-pointer"
             onMouseEnter={() => setOpenMenu("services")}
             onMouseLeave={() => setOpenMenu(null)}
           >
             Services ▾
             <Dropdown open={openMenu === "services"}>
-              <DropdownItem title="Web Development" />
+              <DropdownItem title="Web Development" to="/web-development"/>
               <DropdownItem title="Mobile Apps" />
-              <DropdownItem title="UI/UX Design" />
               <DropdownItem title="Digital Marketing" />
             </Dropdown>
           </li>
 
-          {/* Products */}
           <li
             className="relative cursor-pointer"
             onMouseEnter={() => setOpenMenu("products")}
@@ -48,27 +46,12 @@ export default function Navbar() {
           >
             Products ▾
             <Dropdown open={openMenu === "products"}>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold mb-2">Our Products</p>
-                  <DropdownItem title="CRM Software" />
-                  <DropdownItem title="CRM Template" />
-                  <DropdownItem title="Employee CRM" />
-                </div>
-                <div className="bg-gray-50 p-4 rounded">
-                  <p className="font-semibold">Explore CRM Solutions</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Smart tools built for every business.
-                  </p>
-                  <a className="text-blue-600 text-sm mt-2 inline-block">
-                    Learn more →
-                  </a>
-                </div>
-              </div>
+              <DropdownItem title="CRM Software" />
+              <DropdownItem title="CRM Template" />
+              <DropdownItem title="Employee CRM" />
             </Dropdown>
           </li>
 
-          {/* Pages */}
           <li
             className="relative cursor-pointer"
             onMouseEnter={() => setOpenMenu("pages")}
@@ -83,23 +66,58 @@ export default function Navbar() {
             </Dropdown>
           </li>
 
-          <li className="cursor-pointer">Contact us</li>
+          <li className="cursor-pointer">Contact</li>
         </ul>
 
-        {/* CTA */}
+        {/* DESKTOP CTA */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-blue-600 text-white px-5 py-2 rounded-md"
+          className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-md"
         >
           Contact Us
         </motion.button>
+
+        {/* MOBILE HAMBURGER */}
+        <button
+          className="md:hidden flex flex-col gap-1"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <span className="w-6 h-[2px] bg-gray-600"></span>
+          <span className="w-6 h-[2px] bg-gray-600"></span>
+          <span className="w-6 h-[2px] bg-gray-600"></span>
+        </button>
       </nav>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white border-t"
+          >
+            <div className="px-6 py-6 flex flex-col gap-4 text-sm font-medium">
+              <MobileLink title="Home" />
+              <MobileLink title="Services" />
+              <MobileLink title="Products" />
+              <MobileLink title="Pages" />
+              <MobileLink title="Contact" />
+
+              <button className="mt-4 bg-blue-600 text-white py-3 rounded-md">
+                Contact Us
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
 
-/* ---------------- DROPDOWN COMPONENTS ---------------- */
+/* ---------------- HELPERS ---------------- */
 
 function Dropdown({ open, children }) {
   return (
@@ -110,7 +128,7 @@ function Dropdown({ open, children }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.25 }}
-          className="absolute top-full left-0 mt-4 w-80 bg-white border rounded-lg shadow-lg p-4 z-50"
+          className="absolute top-full left-0 mt-4 w-72 bg-white border rounded-lg shadow-lg p-4 z-50"
         >
           {children}
         </motion.div>
@@ -119,12 +137,25 @@ function Dropdown({ open, children }) {
   );
 }
 
-function DropdownItem({ title }) {
-  return (
-    <div className="py-2 text-sm text-gray-700 hover:text-blue-600 cursor-pointer">
+function DropdownItem({ title, to }) {
+   return (
+    <Link
+      to={to}
+      className="block py-2 text-sm text-gray-700 hover:text-blue-600"
+    >
       {title}
-    </div>
+    </Link>
   );
 }
 
+function MobileLink({ title, to }) {
+  return (
+    <Link
+      to={to}
+      className="block py-2 text-sm text-gray-700 hover:text-blue-600"
+    >
+      {title}
+    </Link>
+  );
+}
 
