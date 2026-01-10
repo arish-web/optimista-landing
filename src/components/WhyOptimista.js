@@ -1,33 +1,22 @@
-// export default function WhyOptimista() {
-//   return (
-//     <section className="py-24 bg-gray-50">
-//       <div className="max-w-5xl mx-auto px-6 text-center">
-//         <h2 className="text-3xl font-bold">Why Optimista</h2>
+import { motion } from "framer-motion";
 
-//         <div className="mt-12 grid md:grid-cols-3 gap-10 text-left">
-//           <div>
-//             <h3 className="font-semibold">Business-first mindset</h3>
-//             <p className="mt-2 text-sm text-gray-600">
-//               We focus on outcomes, not just features.
-//             </p>
-//           </div>
-//           <div>
-//             <h3 className="font-semibold">Clear communication</h3>
-//             <p className="mt-2 text-sm text-gray-600">
-//               Transparent process with zero confusion.
-//             </p>
-//           </div>
-//           <div>
-//             <h3 className="font-semibold">Long-term support</h3>
-//             <p className="mt-2 text-sm text-gray-600">
-//               We stay with you after launch.
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 export default function WhyOptimista() {
   const points = [
@@ -39,17 +28,49 @@ export default function WhyOptimista() {
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center">Why Optimista</h2>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-3">
+        {/* Title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold text-center"
+        >
+          Why Optimista
+        </motion.h2>
+
+        {/* Points */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-14 grid gap-10 md:grid-cols-3"
+        >
           {points.map(([title, desc, icon]) => (
-            <div key={title} className="text-center md:text-left">
-              <img src={icon} className="h-8 mb-4 opacity-70" />
+            <motion.div
+              key={title}
+              variants={item}
+              className="text-center md:text-left"
+            >
+              <motion.img
+                src={icon}
+                alt={title}
+                className="h-8 mb-4 opacity-70"
+                whileHover={{ y: -4, opacity: 1 }}
+                transition={{ duration: 0.25 }}
+              />
+
               <h3 className="font-semibold">{title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{desc}</p>
-            </div>
+
+              <p className="mt-2 text-sm text-gray-600">
+                {desc}
+              </p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
