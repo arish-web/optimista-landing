@@ -7,7 +7,7 @@ export default function DmWhyChoose() {
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
 
         <motion.img
-          src="https://raw.githubusercontent.com/realstoman/ui-assets/main/marketing-illustration.png"
+          src="https://optimista.in/assets/storyset/services/why.svg"
           className="max-w-sm mx-auto"
           variants={fadeLeft}
           initial="hidden"

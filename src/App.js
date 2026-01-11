@@ -7,6 +7,7 @@ import CrmSoftware from "../src/pages/CrmSoftware";
 import CrmTemplate from "../src/pages/CrmTemplate";
 import EmployeeCrm from "../src/pages/EmployeeCrm";
 import Contact from "../src/pages/Contact"
+import Pricing from "../src/pages/pricing";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/coming-soon" element={<CrmTemplate />} />
         <Route path="/coming-soon" element={<EmployeeCrm />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/pricing" element={<Pricing />} />
       </Routes>
     </BrowserRouter>
   );

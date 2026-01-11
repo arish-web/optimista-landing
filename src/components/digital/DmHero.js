@@ -39,7 +39,7 @@ export default function DmHero() {
 
         {/* IMAGE / ILLUSTRATION */}
         <motion.img
-          src="https://optimista.in/assets/images/services/digitalservicesabout.jpg"
+          src="https://optimista.in/assets/storyset/services/digitaldash.svg"
           alt="Marketing dashboard"
           className="w-full max-w-md mx-auto"
           variants={fadeRight}

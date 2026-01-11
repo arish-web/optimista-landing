@@ -38,7 +38,7 @@ export default function WebFeatureDetail() {
 
         {/* Illustration */}
         <motion.img
-          src="/static-web-illustration.svg"
+          src="https://optimista.in/assets/storyset/services/WebsiteCreatorcuate.svg"
           alt="Static web development"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

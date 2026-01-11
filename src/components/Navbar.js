@@ -115,8 +115,8 @@ export default function Navbar() {
           whileTap={{ scale: 0.95 }}
           className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-md"
         >
-          <Link to="/contact" className="cursor-pointer hover:text-white-600">
-            Contact Us
+          <Link to="/pricing" className="cursor-pointer hover:text-white-600">
+            Buy Now
           </Link>
           {/* Contact Us */}
         </motion.button>

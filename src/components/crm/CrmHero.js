@@ -63,7 +63,7 @@ export default function CrmHero() {
           className="relative flex justify-center"
         >
           <motion.img
-            src="https://raw.githubusercontent.com/realstoman/ui-assets/main/mobile-dashboard-blue.png"
+            src="https://optimista.in/assets/images/about/crmhero.jpg"
             className="w-[280px]"
             variants={floatY}
             animate="animate"
@@ -71,14 +71,14 @@ export default function CrmHero() {
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="absolute top-8 -right-6 bg-white shadow px-4 py-2 rounded-lg text-sm"
+            className="absolute top-8 -right-0 bg-white shadow px-4 py-2 rounded-lg text-sm"
           >
             ⭐ 4.9 · 150K reviews
           </motion.div>
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="absolute bottom-8 -left-6 bg-white shadow px-4 py-2 rounded-lg text-sm"
+            className="absolute bottom-8 -left-0 bg-white shadow px-4 py-2 rounded-lg text-sm"
           >
             19K+ Happy customers
           </motion.div>
