@@ -1,24 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [themeMenu, setThemeMenu] = useState(false);
-const [theme, setTheme] = useState(
-  localStorage.getItem("theme") || "auto"
-);
-
-useEffect(() => {
-  if (theme === "auto") {
-    document.documentElement.removeAttribute("data-theme");
-  } else {
-    document.documentElement.setAttribute("data-theme", theme);
-  }
-  localStorage.setItem("theme", theme);
-}, [theme]);
+  const [mobileMenu, setMobileMenu] = useState(null);
 
   return (
     <motion.header
@@ -127,9 +115,9 @@ useEffect(() => {
           whileTap={{ scale: 0.95 }}
           className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-md"
         >
-            <Link to="/contact" className="cursor-pointer hover:text-white-600">
-              Contact Us
-            </Link>
+          <Link to="/contact" className="cursor-pointer hover:text-white-600">
+            Contact Us
+          </Link>
           {/* Contact Us */}
         </motion.button>
 
@@ -143,7 +131,7 @@ useEffect(() => {
           <span className="w-6 h-[2px] bg-gray-600"></span>
         </button>
       </nav>
-
+      
       {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
@@ -153,17 +141,149 @@ useEffect(() => {
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden bg-white border-t"
           >
-            <div className="px-6 py-6 flex flex-col gap-4 text-sm">
-              {/* <MobileLink title="Home" />
-              <MobileLink title="Services" />
-              <MobileLink title="Products" />
-              <MobileLink title="Pages" />
-              <MobileLink title="Contact" /> */}
-              <MobileLink title="Home" to="/" onClick={() => setMobileOpen(false)} />
-<MobileLink title="Services" to="/web-development" onClick={() => setMobileOpen(false)} />
-<MobileLink title="Products" to="/crm-software" onClick={() => setMobileOpen(false)} />
-<MobileLink title="Pages" to="/coming-soon" onClick={() => setMobileOpen(false)} />
-<MobileLink title="Contact" to="/contact" onClick={() => setMobileOpen(false)} />
+            <div className="px-6 py-6 space-y-3 text-sm">
+              <MobileNavLink to="/" close={() => setMobileOpen(false)}>
+                Home
+              </MobileNavLink>
+
+              {/* SERVICES */}
+              <MobileAccordion
+                label="Services"
+                open={mobileMenu === "services"}
+                toggle={() =>
+                  setMobileMenu(mobileMenu === "services" ? null : "services")
+                }
+              >
+                <MobileNavLink
+                  to="/web-development"
+                  close={() => setMobileOpen(false)}
+                >
+                  Web Development
+                </MobileNavLink>
+                <MobileNavLink
+                  to="/mobile-development"
+                  close={() => setMobileOpen(false)}
+                >
+                  Mobile Apps
+                </MobileNavLink>
+                <MobileNavLink
+                  to="/digital-marketing"
+                  close={() => setMobileOpen(false)}
+                >
+                  Digital Marketing
+                </MobileNavLink>
+              </MobileAccordion>
+
+              {/* PRODUCTS */}
+              <MobileAccordion
+                label="Products"
+                open={mobileMenu === "products"}
+                toggle={() =>
+                  setMobileMenu(mobileMenu === "products" ? null : "products")
+                }
+              >
+                <MobileNavLink
+                  to="/crm-software"
+                  close={() => setMobileOpen(false)}
+                >
+                  CRM Software
+                </MobileNavLink>
+                <MobileNavLink
+                  to="/coming-soon"
+                  close={() => setMobileOpen(false)}
+                >
+                  CRM Template
+                </MobileNavLink>
+                <MobileNavLink
+                  to="/coming-soon"
+                  close={() => setMobileOpen(false)}
+                >
+                  Employee CRM
+                </MobileNavLink>
+              </MobileAccordion>
+
+              {/* PAGES */}
+              <MobileAccordion
+                label="Pages"
+                open={mobileMenu === "pages"}
+                toggle={() =>
+                  setMobileMenu(mobileMenu === "pages" ? null : "pages")
+                }
+              >
+                <MobileNavLink
+                  to="/coming-soon"
+                  close={() => setMobileOpen(false)}
+                >
+                  About Us
+                </MobileNavLink>
+                <MobileNavLink
+                  to="/coming-soon"
+                  close={() => setMobileOpen(false)}
+                >
+                  Testimonials
+                </MobileNavLink>
+
+                {/* SUB MENU */}
+                <MobileSubAccordion
+                  label="Resources"
+                  open={openSubMenu === "resources"}
+                  toggle={() =>
+                    setOpenSubMenu(
+                      openSubMenu === "resources" ? null : "resources"
+                    )
+                  }
+                >
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Blogs
+                  </MobileNavLink>
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Case Study
+                  </MobileNavLink>
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Demo
+                  </MobileNavLink>
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Videos
+                  </MobileNavLink>
+                </MobileSubAccordion>
+
+                <MobileSubAccordion
+                  label="Career"
+                  open={openSubMenu === "career"}
+                  toggle={() =>
+                    setOpenSubMenu(openSubMenu === "career" ? null : "career")
+                  }
+                >
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Full Time
+                  </MobileNavLink>
+                  <MobileNavLink
+                    to="/coming-soon"
+                    close={() => setMobileOpen(false)}
+                  >
+                    Internship
+                  </MobileNavLink>
+                </MobileSubAccordion>
+              </MobileAccordion>
+
+              <MobileNavLink to="/contact" close={() => setMobileOpen(false)}>
+                Contact
+              </MobileNavLink>
             </div>
           </motion.div>
         )}
@@ -196,7 +316,7 @@ function DropdownItem({ title, to, arrow, children, onMouseEnter }) {
     <div className="relative" onMouseEnter={onMouseEnter}>
       <Link
         to={to || "#"}
-        className="flex justify-between items-center py-2 text-sm text-gray-700 hover:text-blue-600"
+        className="flex justify-between items-center py-2 text-sm hover:text-blue-600"
       >
         {title}
         {arrow && <span>›</span>}
@@ -231,10 +351,45 @@ function Divider() {
   return <div className="my-3 border-t" />;
 }
 
-function MobileLink({ title, to = "#" }) {
+function MobileNavLink({ to, children, close }) {
   return (
-    <Link to={to} className="block py-2 text-gray-700">
-      {title}
+    <Link
+      to={to}
+      onClick={close}
+      className="block py-2 text-gray-700"
+    >
+      {children}
     </Link>
   );
 }
+
+function MobileAccordion({ label, open, toggle, children }) {
+  return (
+    <div>
+      <button
+        onClick={toggle}
+        className="w-full flex justify-between py-2 font-medium"
+      >
+        {label}
+        <span>{open ? "−" : "+"}</span>
+      </button>
+      {open && <div className="pl-4 space-y-2">{children}</div>}
+    </div>
+  );
+}
+
+function MobileSubAccordion({ label, open, toggle, children }) {
+  return (
+    <div className="pl-4">
+      <button
+        onClick={toggle}
+        className="w-full flex justify-between py-2"
+      >
+        {label}
+        <span>{open ? "−" : "+"}</span>
+      </button>
+      {open && <div className="pl-4 space-y-2">{children}</div>}
+    </div>
+  );
+}
+

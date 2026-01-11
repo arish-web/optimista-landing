@@ -7,7 +7,7 @@ export default function DmIntro() {
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
 
         <motion.img
-          src="https://raw.githubusercontent.com/realstoman/ui-assets/main/team-work.png"
+          src="https://optimista.in/assets/images/services/digitalservicesaboutup.jpg"
           className="rounded-xl"
           variants={fadeUp}
           initial="hidden"
