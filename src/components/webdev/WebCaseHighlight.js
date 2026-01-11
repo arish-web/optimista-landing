@@ -36,7 +36,7 @@ export default function WebCaseHighlight() {
           className="relative"
         >
           <img
-            src="/webdev-case.jpg"
+            src="/webdevelopment/trusty.jpg"
             alt="Web service preview"
             className="rounded-xl shadow-lg"
           />

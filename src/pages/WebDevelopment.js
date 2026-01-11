@@ -6,6 +6,7 @@ import WebCaseHighlight from "../components/webdev/WebCaseHighlight";
 import WebFeatures from "../components/webdev/WebFeatures";
 import WebFeatureDetail from "../components/webdev/WebFeatureDetail";
 import WebCTA from "../components/webdev/WebCTA";
+import Footer from "../components/webdev/Footer";
 
 export default function WebDevelopment() {
   return (
@@ -18,6 +19,7 @@ export default function WebDevelopment() {
       <WebFeatures />
       <WebFeatureDetail />
       <WebCTA />
+      <Footer />
     </>
   );
 }
