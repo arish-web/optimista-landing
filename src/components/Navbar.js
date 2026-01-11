@@ -1,311 +1,168 @@
-// import { motion, AnimatePresence } from "framer-motion";
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
+// 
 
-// export default function Navbar() {
-//   const [openMenu, setOpenMenu] = useState(null);
-//   const [mobileOpen, setMobileOpen] = useState(false);
-
-//   return (
-//     <motion.header
-//       initial={{ y: -80, opacity: 0 }}
-//       animate={{ y: 0, opacity: 1 }}
-//       transition={{ duration: 0.6, ease: "easeOut" }}
-//       className="sticky top-0 bg-white border-b z-50"
-//     >
-//       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
-//         {/* Logo */}
-//         <img
-//           src="/optimistalogolight.svg"
-//           alt="Optimista logo"
-//           className="h-8"
-//         />
-
-//         {/* DESKTOP MENU */}
-//         <ul className="hidden md:flex gap-8 text-sm font-medium items-center">
-//           <li title="Home" to="/" className="cursor-pointer">
-//             Home
-//           </li>
-
-//           <li
-//             className="relative cursor-pointer"
-//             onMouseEnter={() => setOpenMenu("services")}
-//             onMouseLeave={() => setOpenMenu(null)}
-//           >
-//             Services ▾
-//             <Dropdown open={openMenu === "services"}>
-//               <DropdownItem title="Web Development" to="/web-development" />
-//               <DropdownItem title="Mobile Apps" to="/mobile-development" />
-//               <DropdownItem title="Digital Marketing" to="/digital-marketing" />
-//             </Dropdown>
-//           </li>
-
-//           <li
-//             className="relative cursor-pointer"
-//             onMouseEnter={() => setOpenMenu("products")}
-//             onMouseLeave={() => setOpenMenu(null)}
-//           >
-//             Products ▾
-//             <Dropdown open={openMenu === "products"}>
-//               <DropdownItem title="CRM Software" to="/crm-software" />
-//               <DropdownItem title="CRM Template" to="/coming-soon" />
-//               <DropdownItem title="Employee CRM" to="/coming-soon" />
-//             </Dropdown>
-//           </li>
-//           <li className="cursor-pointer">Contact</li>
-//           <li
-//             className="relative cursor-pointer"
-//             onMouseEnter={() => setOpenMenu("pages")}
-//             onMouseLeave={() => setOpenMenu(null)}
-//           >
-//             Pages ▾
-//             <Dropdown open={openMenu === "pages"}>
-//               <DropdownItem title="About Us" to="/coming-soon" />
-//               <DropdownItem title="Careers" to="/coming-soon" />
-//               <DropdownItem title="Testimonials" to="/coming-soon" />
-//               <DropdownItem title="Resource" to="/coming-soon" />
-//               {/* <DropdownItem title="Contact" to="/coming-soon" /> */}
-//             </Dropdown>
-//           </li>
-//         </ul>
-
-//         {/* DESKTOP CTA */}
-//         <motion.button
-//           whileHover={{ scale: 1.05 }}
-//           whileTap={{ scale: 0.95 }}
-//           className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-md"
-//         >
-//           Contact Us
-//         </motion.button>
-
-//         {/* MOBILE HAMBURGER */}
-//         <button
-//           className="md:hidden flex flex-col gap-1"
-//           onClick={() => setMobileOpen(!mobileOpen)}
-//         >
-//           <span className="w-6 h-[2px] bg-gray-600"></span>
-//           <span className="w-6 h-[2px] bg-gray-600"></span>
-//           <span className="w-6 h-[2px] bg-gray-600"></span>
-//         </button>
-//       </nav>
-
-//       {/* MOBILE MENU */}
-//       <AnimatePresence>
-//         {mobileOpen && (
-//           <motion.div
-//             initial={{ height: 0, opacity: 0 }}
-//             animate={{ height: "auto", opacity: 1 }}
-//             exit={{ height: 0, opacity: 0 }}
-//             transition={{ duration: 0.3, ease: "easeInOut" }}
-//             className="md:hidden bg-white border-t"
-//           >
-//             <div className="px-6 py-6 flex flex-col gap-4 text-sm font-medium">
-//               <MobileLink title="Home" />
-//               <MobileLink title="Services" />
-//               <MobileLink title="Products" />
-//               <MobileLink title="Pages" />
-//               <MobileLink title="Contact" />
-
-//               <button className="mt-4 bg-blue-600 text-white py-3 rounded-md">
-//                 Contact Us
-//               </button>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </motion.header>
-//   );
-// }
-
-// /* ---------------- HELPERS ---------------- */
-
-// function Dropdown({ open, children }) {
-//   return (
-//     <AnimatePresence>
-//       {open && (
-//         <motion.div
-//           initial={{ opacity: 0, y: 10 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           exit={{ opacity: 0, y: 10 }}
-//           transition={{ duration: 0.25 }}
-//           className="absolute top-full left-0 mt-4 w-72 bg-white border rounded-lg shadow-lg p-4 z-50"
-//         >
-//           {children}
-//         </motion.div>
-//       )}
-//     </AnimatePresence>
-//   );
-// }
-
-// function DropdownItem({ title, to }) {
-//   return (
-//     <Link
-//       to={to}
-//       className="block py-2 text-sm text-gray-700 hover:text-blue-600"
-//     >
-//       {title}
-//     </Link>
-//   );
-// }
-
-// function MobileLink({ title, to }) {
-//   return (
-//     <Link
-//       to={to}
-//       className="block py-2 text-sm text-gray-700 hover:text-blue-600"
-//     >
-//       {title}
-//     </Link>
-//   );
-// }
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null);
-  const [openSubMenu, setOpenSubMenu] = useState(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [themeMenu, setThemeMenu] = useState(false);
-const [theme, setTheme] = useState(
-  localStorage.getItem("theme") || "auto"
-);
+  // ---------- DESKTOP ----------
+  const [desktopMenu, setDesktopMenu] = useState(null);
+  const [desktopSub, setDesktopSub] = useState(null);
 
-useEffect(() => {
-  if (theme === "auto") {
-    document.documentElement.removeAttribute("data-theme");
-  } else {
-    document.documentElement.setAttribute("data-theme", theme);
-  }
-  localStorage.setItem("theme", theme);
-}, [theme]);
+  // ---------- MOBILE ----------
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(null);
+  const [mobileSub, setMobileSub] = useState(null);
+
+  // ---------- THEME ----------
+  const [themeMenu, setThemeMenu] = useState(false);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  useEffect(() => {
+    if (theme === "auto") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="sticky top-0 bg-white border-b z-50"
-    >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
-        {/* Logo */}
-        <img src="/optimistalogolight.svg" alt="Optimista" className="h-8" />
+    <header className="sticky top-0 bg-white border-b z-50">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* LOGO */}
+        <Link to="/">
+          <img src="/optimistalogolight.svg" alt="Optimista" className="h-8" />
+        </Link>
 
-        {/* DESKTOP MENU */}
-        <ul className="hidden md:flex gap-8 text-sm font-medium items-center">
-          <li>
-            <Link to="/" className="cursor-pointer hover:text-blue-600">
-              Home
-            </Link>
-          </li>
+        {/* ================= DESKTOP MENU ================= */}
+        <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <NavLink to="/">Home</NavLink>
 
-          {/* SERVICES */}
-          <li
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOpenMenu("services")}
-            onMouseLeave={() => setOpenMenu(null)}
+          <DesktopMenu
+            label="Services"
+            open={desktopMenu === "services"}
+            onOpen={() => setDesktopMenu("services")}
+            onClose={() => setDesktopMenu(null)}
           >
-            Services ▾
-            <Dropdown open={openMenu === "services"}>
-              <DropdownItem title="Web Development" to="/web-development" />
-              <DropdownItem title="Mobile Apps" to="/mobile-development" />
-              <DropdownItem title="Digital Marketing" to="/digital-marketing" />
-            </Dropdown>
-          </li>
+            <MenuItem to="/web-development">Web Development</MenuItem>
+            <MenuItem to="/mobile-development">Mobile Apps</MenuItem>
+            <MenuItem to="/digital-marketing">Digital Marketing</MenuItem>
+          </DesktopMenu>
 
-          {/* PRODUCTS */}
-          <li
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOpenMenu("products")}
-            onMouseLeave={() => setOpenMenu(null)}
+          <DesktopMenu
+            label="Products"
+            open={desktopMenu === "products"}
+            onOpen={() => setDesktopMenu("products")}
+            onClose={() => setDesktopMenu(null)}
           >
-            Products ▾
-            <Dropdown open={openMenu === "products"}>
-              <DropdownItem title="CRM Software" to="/crm-software" />
-              <DropdownItem title="CRM Template" to="/coming-soon" />
-              <DropdownItem title="Employee CRM" to="/coming-soon" />
-            </Dropdown>
-          </li>
+            <MenuItem to="/crm-software">CRM Software</MenuItem>
+            <MenuItem to="/crm-template">CRM Template</MenuItem>
+            <MenuItem to="/employee-crm">Employee CRM</MenuItem>
+          </DesktopMenu>
 
-          {/* PAGES */}
-          <li
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOpenMenu("pages")}
-            onMouseLeave={() => {
-              setOpenMenu(null);
-              setOpenSubMenu(null);
+          <DesktopMenu
+            label="Pages"
+            open={desktopMenu === "pages"}
+            onOpen={() => setDesktopMenu("pages")}
+            onClose={() => {
+              setDesktopMenu(null);
+              setDesktopSub(null);
             }}
           >
-            Pages ▾
-            <Dropdown open={openMenu === "pages"}>
-              <DropdownItem title="About Us" to="/coming-soon" />
-              <DropdownItem title="Testimonials" to="/coming-soon" />
+            <MenuItem to="/coming-soon">About Us</MenuItem>
+            <MenuItem to="/coming-soon">Testimonials</MenuItem>
 
-              {/* RESOURCES */}
-              <DropdownItem
-                title="Resources"
-                arrow
-                onMouseEnter={() => setOpenSubMenu("resources")}
-              >
-                <SubDropdown open={openSubMenu === "resources"}>
-                  <SubItem title="Blogs" to="/coming-soon" />
-                  <SubItem title="Case Study" to="/coming-soon" />
-                  <SubItem title="Demo" to="/coming-soon" />
-                  <SubItem title="Videos" to="/coming-soon" />
-                </SubDropdown>
-              </DropdownItem>
+            <DesktopSub
+              label="Resources"
+              open={desktopSub === "resources"}
+              onOpen={() => setDesktopSub("resources")}
+            >
+              <MenuItem to="/coming-soon">Blogs</MenuItem>
+              <MenuItem to="/coming-soon">Case Study</MenuItem>
+              <MenuItem to="/coming-soon">Demo</MenuItem>
+              <MenuItem to="/coming-soon">Videos</MenuItem>
+            </DesktopSub>
 
-              {/* CAREER */}
-              <DropdownItem
-                title="Career"
-                arrow
-                onMouseEnter={() => setOpenSubMenu("career")}
-              >
-                <SubDropdown open={openSubMenu === "career"}>
-                  <SubItem title="Full Time" to="/coming-soon" />
-                  <SubItem title="Internship" to="/coming-soon" />
-                </SubDropdown>
-              </DropdownItem>
+            <DesktopSub
+              label="Career"
+              open={desktopSub === "career"}
+              onOpen={() => setDesktopSub("career")}
+            >
+              <MenuItem to="/coming-soon">Full Time</MenuItem>
+              <MenuItem to="/coming-soon">Internship</MenuItem>
+            </DesktopSub>
 
-              <Divider />
+            <Divider />
 
-              <DropdownItem title="FAQ" to="/coming-soon" />
-              <DropdownItem title="Documentation" to="/coming-soon" />
-            </Dropdown>
-          </li>
+            <MenuItem to="/coming-soon">FAQ</MenuItem>
+            <MenuItem to="/coming-soon">Documentation</MenuItem>
+          </DesktopMenu>
 
-          <li>
-            <Link to="/contact" className="cursor-pointer hover:text-blue-600">
-              Contact
-            </Link>
-          </li>
+          <NavLink to="/contact">Contact</NavLink>
         </ul>
 
-        {/* CTA */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-md"
-        >
-            <Link to="/contact" className="cursor-pointer hover:text-white-600">
-              Contact Us
-            </Link>
-          {/* Contact Us */}
-        </motion.button>
+        {/* ================= RIGHT SIDE ================= */}
+        <div className="hidden md:flex items-center gap-4 relative">
+          {/* THEME TOGGLE */}
+          <button
+            onClick={() => setThemeMenu(!themeMenu)}
+            className="w-10 h-8 rounded-full border flex items-center justify-center"
+          >
+            ◐
+          </button>
 
-        {/* MOBILE */}
+          <AnimatePresence>
+            {themeMenu && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute right-14 top-12 bg-[#111] text-white rounded-xl p-2 w-36 shadow-xl"
+              >
+                <ThemeItem
+                  label="☀ Light"
+                  active={theme === "light"}
+                  onClick={() => setTheme("light")}
+                />
+                <ThemeItem
+                  label="🌙 Dark"
+                  active={theme === "dark"}
+                  onClick={() => setTheme("dark")}
+                />
+                <ThemeItem
+                  label="◐ Auto"
+                  active={theme === "auto"}
+                  onClick={() => setTheme("auto")}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* BUY NOW */}
+          <Link
+            to="/pricing"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm flex items-center gap-2"
+          >
+            🛒 Buy now
+          </Link>
+        </div>
+
+        {/* ================= MOBILE TOGGLE ================= */}
         <button
           className="md:hidden flex flex-col gap-1"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          <span className="w-6 h-[2px] bg-gray-600"></span>
-          <span className="w-6 h-[2px] bg-gray-600"></span>
-          <span className="w-6 h-[2px] bg-gray-600"></span>
+          <span className="w-6 h-[2px] bg-gray-700" />
+          <span className="w-6 h-[2px] bg-gray-700" />
+          <span className="w-6 h-[2px] bg-gray-700" />
         </button>
       </nav>
 
-      {/* MOBILE MENU */}
+      {/* ================= MOBILE MENU ================= */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -314,71 +171,138 @@ useEffect(() => {
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden bg-white border-t"
           >
-            <div className="px-6 py-6 flex flex-col gap-4 text-sm">
-              <MobileLink title="Home" />
-              <MobileLink title="Services" />
-              <MobileLink title="Products" />
-              <MobileLink title="Pages" />
-              <MobileLink title="Contact" />
+            <div className="px-6 py-6 space-y-3 text-sm">
+              <MobileLink to="/">Home</MobileLink>
+
+              <MobileAccordion
+                label="Services"
+                open={mobileMenu === "services"}
+                onToggle={() =>
+                  setMobileMenu(mobileMenu === "services" ? null : "services")
+                }
+              >
+                <MobileLink to="/web-development">Web Development</MobileLink>
+                <MobileLink to="/mobile-development">Mobile Apps</MobileLink>
+                <MobileLink to="/digital-marketing">Digital Marketing</MobileLink>
+              </MobileAccordion>
+
+              <MobileAccordion
+                label="Products"
+                open={mobileMenu === "products"}
+                onToggle={() =>
+                  setMobileMenu(mobileMenu === "products" ? null : "products")
+                }
+              >
+                <MobileLink to="/crm-software">CRM Software</MobileLink>
+                <MobileLink to="/crm-template">CRM Template</MobileLink>
+                <MobileLink to="/employee-crm">Employee CRM</MobileLink>
+              </MobileAccordion>
+
+              <MobileAccordion
+                label="Pages"
+                open={mobileMenu === "pages"}
+                onToggle={() =>
+                  setMobileMenu(mobileMenu === "pages" ? null : "pages")
+                }
+              >
+                <MobileLink to="/coming-soon">About Us</MobileLink>
+                <MobileLink to="/coming-soon">Testimonials</MobileLink>
+
+                <MobileSubAccordion
+                  label="Resources"
+                  open={mobileSub === "resources"}
+                  onToggle={() =>
+                    setMobileSub(mobileSub === "resources" ? null : "resources")
+                  }
+                >
+                  <MobileLink to="/coming-soon">Blogs</MobileLink>
+                  <MobileLink to="/coming-soon">Case Study</MobileLink>
+                  <MobileLink to="/coming-soon">Demo</MobileLink>
+                  <MobileLink to="/coming-soon">Videos</MobileLink>
+                </MobileSubAccordion>
+
+                <MobileSubAccordion
+                  label="Career"
+                  open={mobileSub === "career"}
+                  onToggle={() =>
+                    setMobileSub(mobileSub === "career" ? null : "career")
+                  }
+                >
+                  <MobileLink to="/coming-soon">Full Time</MobileLink>
+                  <MobileLink to="/coming-soon">Internship</MobileLink>
+                </MobileSubAccordion>
+
+                <MobileLink to="/coming-soon">FAQ</MobileLink>
+                <MobileLink to="/coming-soon">Documentation</MobileLink>
+              </MobileAccordion>
+
+              <MobileLink to="/contact">Contact</MobileLink>
+
+              {/* MOBILE THEME */}
+              <div className="pt-4 border-t space-y-2">
+                <p className="text-xs text-gray-500">Theme</p>
+                <div className="flex gap-2">
+                  <button onClick={() => setTheme("light")} className="border px-3 py-1 rounded">Light</button>
+                  <button onClick={() => setTheme("dark")} className="border px-3 py-1 rounded">Dark</button>
+                  <button onClick={() => setTheme("auto")} className="border px-3 py-1 rounded">Auto</button>
+                </div>
+
+                <Link to="/pricing" className="block bg-blue-600 text-white text-center py-2 rounded-md">
+                  Buy now
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }
 
-/* ---------------- INTERNAL HELPERS (SAME FILE) ---------------- */
+/* ================= HELPERS ================= */
 
-function Dropdown({ open, children }) {
+function NavLink({ to, children }) {
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          className="absolute top-full left-0 mt-4 w-64 bg-white border rounded-lg shadow-lg p-4 z-50"
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-function DropdownItem({ title, to, arrow, children, onMouseEnter }) {
-  return (
-    <div className="relative" onMouseEnter={onMouseEnter}>
-      <Link
-        to={to || "#"}
-        className="flex justify-between items-center py-2 text-sm text-gray-700 hover:text-blue-600"
-      >
-        {title}
-        {arrow && <span>›</span>}
+    <li>
+      <Link to={to} className="hover:text-blue-600">
+        {children}
       </Link>
-      {children}
+    </li>
+  );
+}
+
+function DesktopMenu({ label, open, onOpen, onClose, children }) {
+  return (
+    <li onMouseEnter={onOpen} onMouseLeave={onClose} className="relative cursor-pointer">
+      {label} ▾
+      {open && (
+        <div className="absolute top-full left-0 mt-4 w-64 bg-white border rounded-lg shadow-lg p-4">
+          {children}
+        </div>
+      )}
+    </li>
+  );
+}
+
+function DesktopSub({ label, open, onOpen, children }) {
+  return (
+    <div onMouseEnter={onOpen} className="relative">
+      <div className="flex justify-between py-2 cursor-pointer">
+        {label} <span>›</span>
+      </div>
+      {open && (
+        <div className="absolute top-0 left-full ml-2 w-56 bg-white border rounded-lg shadow-lg p-4">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
 
-function SubDropdown({ open, children }) {
-  if (!open) return null;
-
+function MenuItem({ to, children }) {
   return (
-    <div className="absolute top-0 left-full ml-2 w-56 bg-white border rounded-lg shadow-lg p-4">
+    <Link to={to} className="block py-2 hover:text-blue-600">
       {children}
-    </div>
-  );
-}
-
-function SubItem({ title, to }) {
-  return (
-    <Link
-      to={to}
-      className="block py-2 text-sm text-gray-700 hover:text-blue-600"
-    >
-      {title}
     </Link>
   );
 }
@@ -387,10 +311,45 @@ function Divider() {
   return <div className="my-3 border-t" />;
 }
 
-function MobileLink({ title, to = "#" }) {
+function ThemeItem({ label, onClick, active }) {
   return (
-    <Link to={to} className="block py-2 text-gray-700">
-      {title}
+    <button
+      onClick={onClick}
+      className={`w-full text-left px-3 py-2 rounded-md text-sm ${
+        active ? "bg-blue-600" : "hover:bg-white/10"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function MobileLink({ to, children }) {
+  return (
+    <Link to={to} className="block py-2">
+      {children}
     </Link>
+  );
+}
+
+function MobileAccordion({ label, open, onToggle, children }) {
+  return (
+    <div>
+      <button onClick={onToggle} className="flex justify-between w-full py-2 font-medium">
+        {label} <span>{open ? "−" : "+"}</span>
+      </button>
+      {open && <div className="pl-4 space-y-2">{children}</div>}
+    </div>
+  );
+}
+
+function MobileSubAccordion({ label, open, onToggle, children }) {
+  return (
+    <div className="pl-4">
+      <button onClick={onToggle} className="flex justify-between w-full py-2">
+        {label} <span>{open ? "−" : "+"}</span>
+      </button>
+      {open && <div className="pl-4 space-y-2">{children}</div>}
+    </div>
   );
 }
