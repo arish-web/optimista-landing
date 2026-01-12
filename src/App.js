@@ -12,6 +12,7 @@ import Pricing from "../src/pages/pricing";
 export default function App() {
   return (
     <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/web-development" element={<WebDevelopment />} />

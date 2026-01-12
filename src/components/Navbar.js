@@ -1,12 +1,26 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
+  const location = useLocation();
   const [openMenu, setOpenMenu] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(null);
+
+  useEffect(() => {
+    // kill mobile menu on route change
+    setMobileOpen(false);
+    setMobileMenu(null);
+    setOpenSubMenu(null);
+
+    // restore scroll
+    document.body.style.overflow = "auto";
+
+    // reset scroll position
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <motion.header
@@ -131,14 +145,14 @@ export default function Navbar() {
           <span className="w-6 h-[2px] bg-gray-600"></span>
         </button>
       </nav>
-      
+
       {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             className="md:hidden bg-white border-t"
           >
             <div className="px-6 py-6 space-y-3 text-sm">
@@ -353,11 +367,7 @@ function Divider() {
 
 function MobileNavLink({ to, children, close }) {
   return (
-    <Link
-      to={to}
-      onClick={close}
-      className="block py-2 text-gray-700"
-    >
+    <Link to={to} onClick={close} className="block py-2 text-gray-700">
       {children}
     </Link>
   );
@@ -381,10 +391,7 @@ function MobileAccordion({ label, open, toggle, children }) {
 function MobileSubAccordion({ label, open, toggle, children }) {
   return (
     <div className="pl-4">
-      <button
-        onClick={toggle}
-        className="w-full flex justify-between py-2"
-      >
+      <button onClick={toggle} className="w-full flex justify-between py-2">
         {label}
         <span>{open ? "−" : "+"}</span>
       </button>
@@ -392,4 +399,3 @@ function MobileSubAccordion({ label, open, toggle, children }) {
     </div>
   );
 }
-

@@ -8,12 +8,7 @@ export default function PricingFeatures() {
       <p className="text-gray-500 mb-12 max-w-xl mx-auto">
         Powerful tools combined with training to help your business grow.
       </p>
-
-      {/* <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-        <Feature title="Get started in minutes" />
-        <Feature title="Optimize your revenue" />
-        <Feature title="24/7 customer support" />
-      </div> */}
+      
       <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-6">
         <Feature title="Get started in minutes" icon="bi-clock" />
         <Feature title="Optimize your revenue" icon="bi-graph-up-arrow" />
